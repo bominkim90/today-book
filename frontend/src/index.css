@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: gray;
+@layer base {
+  * {
+    @apply font-['Roboto'] text-[12px] leading-[16px] text-[#374151];
+  }
+
+  body {
+    @apply max-w-[768px] mx-auto;
+  }
+}
+
+@layer components {
+  .book-title {
+    @apply text-[14px] text-[#1F2937] mb-[4px];
+  }
+
+  .book-sub {
+    @apply text-[12px] text-[#6B7280];
+  }
+
+  .book-cover {
+    @apply rounded-[12px] block bg-white;
+  }
+
+  .section-title {
+    @apply text-[18px] text-[#1F2937];
+  }
+
+  .bg-100 {
+    @apply bg-no-repeat bg-center bg-cover;
+  }
+
+  .page-title {
+    @apply flex-1 text-center text-[18px] text-[#1F2937];
+  }
 }
