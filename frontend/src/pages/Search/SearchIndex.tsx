@@ -1,7 +1,19 @@
+import { useEffect } from 'react';
+import { useSearchStore } from '../../store/searchStore';
+import HeaderIndex from './header/HeaderIndex';
+import MainIndex from './main/MainIndex';
+
 export default function SearchIndex() {
+  const loadFromStorage = useSearchStore((state) => state.loadFromStorage);
+
+  useEffect(() => {
+    loadFromStorage();
+  }, []);
+
   return (
-    <div>
-      <h1>검색 화면</h1>
-    </div>
+    <>
+      <HeaderIndex />
+      <MainIndex />
+    </>
   );
 }

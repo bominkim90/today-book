@@ -10,6 +10,11 @@
   body {
     @apply max-w-[768px] mx-auto;
   }
+
+  input,
+  button {
+    @apply bg-transparent;
+  }
 }
 
 @layer components {
@@ -18,7 +23,7 @@
   }
 
   .book-sub {
-    @apply text-[12px] text-[#6B7280];
+    @apply text-[12px] text-[#6B7280] font-light;
   }
 
   .book-cover {

@@ -5,7 +5,7 @@ export default function Logo() {
 
   return (
     <a
-      className="inline-block h-[28px] font-pacifico text-[20px]"
+      className="inline-block font-pacifico text-[20px]"
       onClick={() => {
         navigate('/');
       }}

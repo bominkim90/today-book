@@ -13,13 +13,12 @@ const navConfig: Record<string, { label: string; iconUrl: string }> = {
 
 export default function NavBtn({ href }: NavBtnProps) {
   const config = navConfig[href];
-  console.log(config);
 
   return (
-    <NavLink
-      to={href}
-      className={({ isActive }) => `w-[90px] h-[100%] flex flex-col justify-between items-center`}
-    >
+    // react-router-dom의 <NavLink> 컴포넌트는
+    // 현재 브라우저의 URL 경로 (location.pathname)와
+    // NavLink의 to 속성 값을 비교해서 isActive 상태를 판단함
+    <NavLink to={href} className={`w-[90px] h-[100%] flex flex-col justify-between items-center`}>
       {({ isActive }) => (
         <>
           <img
