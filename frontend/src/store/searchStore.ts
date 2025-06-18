@@ -10,7 +10,7 @@ type SearchStore = {
   removeOneStorage: (value: string) => void;
 };
 
-export const useSearchStore = create<SearchStore>((set) => ({
+export const useSearchStore = create<SearchStore>((set, get) => ({
   recentSearches: [],
   setRecentSearches: (list) => {
     localStorage.setItem('searchBookRecords', JSON.stringify(list));
@@ -28,13 +28,11 @@ export const useSearchStore = create<SearchStore>((set) => ({
     set({ recentSearches: stored });
   },
   clearAllStorage: () => {
-    set({ recentSearches: [] });
+    get().setRecentSearches([]);
   },
   removeOneStorage: (value) => {
-    set((state) => {
-      const prev = state.recentSearches;
-      const removed = prev.filter((item) => item !== value);
-      return { recentSearches: removed };
-    });
+    const prev = get().recentSearches;
+    const removed = prev.filter((item) => item !== value);
+    get().setRecentSearches(removed);
   },
 }));
