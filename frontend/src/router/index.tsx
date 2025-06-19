@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     element: <Layout />, // 공통 레이아웃
     children: [
       { index: true, element: <HomeIndex /> },
-      { path: 'detail/:bookId', element: <DetailIndex /> },
+      { path: 'detail/:isbn13', element: <DetailIndex /> },
       { path: 'list/:subject', element: <ListIndex /> },
       { path: 'search', element: <SearchIndex /> },
       { path: 'favorites', element: <FavoritesIndex /> },
