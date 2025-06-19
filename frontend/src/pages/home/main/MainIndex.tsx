@@ -20,7 +20,6 @@ export default function MainIndex() {
       />
 
       <SectionIndex listType={3} title={'베스트셀러'} moreBtnFlag={true} LIMIT={3} />
-      {/* <HomeSection title={'베스트 셀러'} swiperFlag={false} moreBtnFlag={true} LIMIT={3} /> */}
     </main>
   );
 }

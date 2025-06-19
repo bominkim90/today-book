@@ -1,11 +1,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { useNavigate } from 'react-router-dom';
-// import { getBookList } from '../../api/books';
-// import { useEffect } from 'react';
+// import useBookList from '../../../../hooks/useBookList';
 
 interface TBookData {
-  id: number;
+  isbn13: number;
   img: string;
   title: string;
   author: string;
@@ -21,15 +20,9 @@ interface SectionSwiperProps {
 
 export default function SectionSwiper({ LIMIT, bookData, swiperLeng }: SectionSwiperProps) {
   const navigate = useNavigate();
-  // 추후 API 연결 시 사용
-  // let bookData: TBookData;
-  // useEffect(() => {
-  //   getBookList()
-  //     .then((result) => {
-  //       bookData = result;
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
+  // const {bookData, error} = useBookList('today', 1, LIMIT);
+  // if (error) return <p>에러!</p>;
+  // if (!bookData) return <p>로딩 중...</p>;
 
   return (
     <Swiper spaceBetween={12} slidesPerView={swiperLeng}>
@@ -38,7 +31,7 @@ export default function SectionSwiper({ LIMIT, bookData, swiperLeng }: SectionSw
           <SwiperSlide key={index}>
             <div
               onClick={() => {
-                navigate(`/detail/${value.id}`);
+                navigate(`/detail/${value.isbn13}`);
               }}
               className="aspect-[1.5208/1] rounded-[24px] overflow-hidden relative"
             >

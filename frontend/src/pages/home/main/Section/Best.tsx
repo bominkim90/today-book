@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+// import useBookList from '../../../../hooks/useBookList';
 
 interface TBookData {
-  id: number;
+  isbn13: number;
   img: string;
   title: string;
   author: string;
@@ -16,6 +17,9 @@ interface SectionListProps {
 
 export default function SectionList({ bookData, LIMIT }: SectionListProps) {
   const navigate = useNavigate();
+  // const {bookData, error} = useBookList('today', 1, LIMIT);
+  // if (error) return <p>에러!</p>;
+  // if (!bookData) return <p>로딩 중...</p>;
 
   return (
     <div>
@@ -23,7 +27,7 @@ export default function SectionList({ bookData, LIMIT }: SectionListProps) {
         return (
           <div
             onClick={() => {
-              navigate(`/detail/${value.id}`);
+              navigate(`/detail/${value.isbn13}`);
             }}
             key={index}
             className={`${index !== 0 ? 'mt-[16px]' : ''} aspect-[3.298/1]`}

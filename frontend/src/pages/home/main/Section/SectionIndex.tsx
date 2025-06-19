@@ -20,7 +20,7 @@ export default function HomeSection(props: propsHomeSection) {
   // 섹션 주제별로 데이터가 달라짐
   const dummy = [
     {
-      id: 1,
+      isbn13: 1,
       img: '/imgs/book-cover.png',
       title: '시간의 정원',
       author: '김하연',
@@ -28,7 +28,7 @@ export default function HomeSection(props: propsHomeSection) {
       description: '일상에서 벗어나 자신만의 정원을 가꾸는 방법에 대한 에세이.',
     },
     {
-      id: 2,
+      isbn13: 2,
       img: '/imgs/book-cover.png',
       title: '파도',
       author: '김보민2',
@@ -36,7 +36,7 @@ export default function HomeSection(props: propsHomeSection) {
       description: '파도에서 벗어나 자신만의 정원을 가꾸는 방법에 대한 에세이.',
     },
     {
-      id: 3,
+      isbn13: 3,
       img: '/imgs/book-cover.png',
       title: '코딩이란',
       author: '김보민3',
@@ -44,7 +44,7 @@ export default function HomeSection(props: propsHomeSection) {
       description: '코딩에서 벗어나 자신만의 정원을 가꾸는 방법에 대한 에세이.',
     },
     {
-      id: 4,
+      isbn13: 4,
       img: '/imgs/book-cover.png',
       title: '코딩이란',
       author: '김보민3',
@@ -52,7 +52,7 @@ export default function HomeSection(props: propsHomeSection) {
       description: '코딩에서 벗어나 자신만의 정원을 가꾸는 방법에 대한 에세이.',
     },
     {
-      id: 5,
+      isbn13: 5,
       img: '/imgs/book-cover.png',
       title: '코딩이란',
       author: '김보민3',
