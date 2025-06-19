@@ -1,9 +1,9 @@
 // import axios from 'axios';
 // import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SectionList from './SectionList';
-import SectionSwiperToday from './SectionSwiperToday';
-import SectionSwiperNew from './SectionSwiperNew';
+import SectionList from './Best';
+import SectionSwiperToday from './SwiperToday';
+import SectionSwiperNew from './SwiperNew';
 
 interface propsHomeSection {
   listType: number;
@@ -94,10 +94,14 @@ export default function HomeSection(props: propsHomeSection) {
             onClick={() => {
               navigate(`/list/${title}`);
             }}
-            className="text-mainBlue"
             type="button"
+            className="text-mainBlue pr-[18px]"
+            style={{
+              background:
+                "url('/icons/button/arrow_blue.svg') right calc(50% + 1px)/20px 20px no-repeat",
+            }}
           >
-            더보기 &#62;
+            더보기
           </button>
         )}
       </div>

@@ -36,7 +36,9 @@ export default function SectionSwiper({ LIMIT, bookData, swiperLeng }: SectionSw
               className="block w-full aspect-[0.75/1] rounded-[12px]"
             />
             <div className="mt-[8px]">
-              <p className="book-title">{value.title}</p>
+              <p className="book-title" style={{ fontSize: '12px' }}>
+                {value.title}
+              </p>
               <p className="book-sub">{value.author}</p>
             </div>
           </SwiperSlide>

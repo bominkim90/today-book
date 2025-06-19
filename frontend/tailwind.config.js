@@ -10,6 +10,7 @@ module.exports = {
       },
       colors: {
         mainBlue: '#4F46E5', // 쨍한 파란색
+        mainGray: '#F3F4F6', // gray
       },
     },
   },
