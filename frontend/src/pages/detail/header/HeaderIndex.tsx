@@ -1,4 +1,4 @@
-import BackButton from '../../../components/BackButtton';
+import BackButton from '../../../components/BackBtn';
 
 export default function HeaderIndex() {
   return (

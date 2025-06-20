@@ -1,4 +1,4 @@
-import BackButton from '../../../components/BackButtton';
+import BackButton from '../../../components/BackBtn';
 import SearchWindow from './SearchWindow';
 
 export default function HeaderSearch() {

@@ -5,11 +5,10 @@ export async function getBookList(type: string, page: number, limit: number) {
   try {
     // /api/books?type='today'&page=1&limit=10
     const res = await axios.get(`/api/books?type=${type}&page=${page}&limit=${limit}`);
-    console.log("res :", res);
-    return res.data;
+    return res.data.item;
   } catch (err) {
-    console.log('책 목록 GET 요청 실패 : ', err);
-    return err;
+    console.error('책 목록 GET 요청 실패 : ', err);
+    throw err;
   }
 }
 
@@ -17,9 +16,9 @@ export async function getBookList(type: string, page: number, limit: number) {
 export async function getBookDetail(isbn13: number) {
   try {
     const res = await axios.get(`/api/books/${isbn13}`);
-    return res.data;
+    return res.data.item;
   } catch (err) {
-    console.log('책 목록 GET 요청 실패 : ', err);
-    return err;
+    console.error ('책 목록 GET 요청 실패 : ', err);
+    throw err;
   }
 }
