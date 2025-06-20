@@ -1,36 +1,99 @@
-import { Injectable } from '@nestjs/common';
-import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+import { FindBooksQueryDto } from './dto/findAll-book.dto';
+import { SearchBooksQueryDto } from './dto/search-book.dto';
+import { AladinBookResponse } from './types/aladin-api.type';
 
 @Injectable()
 export class BooksService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getBooks() {
-    const ttbKey = process.env.API_TTB_KEY;
-    const url = `http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=${ttbKey}&QueryType=Bestseller&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20131101`;
-    const response = await this.httpService.axiosRef.get(url);
-    return response.data;
+  async search(searchBookQueryDto: SearchBooksQueryDto) {
+    try {
+      const { keyword, keywordType, page, limit, sort, categoryId } =
+        searchBookQueryDto;
+      const TTBKey = process.env.API_TTB_KEY;
+      const baseUrl = `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx`;
+      const params = new URLSearchParams({
+        TTBKey: TTBKey ?? '',
+        Query: keyword,
+        QueryType: keywordType || 'Keyword',
+        Start: page ? String((page - 1) * (limit || 20) + 1) : '1',
+        MaxResults: limit ? String(limit) : '20',
+        Sort: sort || 'accuracy',
+        CategoryId: categoryId ? String(categoryId) : '0',
+        Output: 'js',
+        Version: '20131101',
+      });
+      const fullUrl = `${baseUrl}?${params.toString()}`;
+      // console.log(`[BooksService] Requesting URL: ${fullUrl}`); // 3. 최종 요청 URL 확인
+      const response = await this.httpService.axiosRef.get(fullUrl);
+      // console.log(response.data);
+      return response.data as AladinBookResponse;
+    } catch (error) {
+      console.error(error);
+      throw new BadRequestException('Failed to fetch book details');
+    }
   }
 
-  // create(createBookDto: CreateBookDto) {
-  //   return 'This action adds a new book';
-  // }
+  async findAll(findBookQueryDto: FindBooksQueryDto) {
+    try {
+      const { page, limit, type: queryType, categoryId } = findBookQueryDto;
+      const queryTypeMap: Record<string, string> = {
+        today: 'ItemEditorChoice',
+        new: 'ItemNewSpecial',
+        best: 'Bestseller',
+      };
+      const mappedQueryType = queryTypeMap[queryType];
+      if (!mappedQueryType) {
+        console.log(mappedQueryType);
+        throw new BadRequestException('Invalid query type');
+      }
 
-  // findAll() {
-  //   return `This action returns all books`;
-  // }
+      const TTBKey = process.env.API_TTB_KEY;
+      const baseUrl = `http://www.aladin.co.kr/ttb/api/ItemList.aspx`;
+      const queryParams = `?TTBKey=${TTBKey}&QueryType=Bestseller&MaxResults=20&start=1&SearchTarget=Book&Output=js&Version=20131101`;
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} book`;
-  // }
+      const params = new URLSearchParams({
+        TTBKey: TTBKey ?? '',
+        QueryType: mappedQueryType,
+        SearchTarget: 'Book',
+        Start: page ? String((page - 1) * (limit || 20) + 1) : '1',
+        MaxResults: limit ? String(limit) : '20',
+        CategoryId: categoryId ? String(categoryId) : '0',
+        Output: 'js',
+        Version: '20131101',
+      });
+      const fullUrl = `${baseUrl}?${params.toString()}`;
+      // console.log(`[BooksService] Requesting URL: ${fullUrl}`); // 3. 최종 요청 URL 확인
+      const response = await this.httpService.axiosRef.get(fullUrl);
+      // console.log(response.data);
+      return response.data as AladinBookResponse;
+    } catch (error) {
+      console.error(error);
+      throw new BadRequestException('Failed to fetch book details');
+    }
+  }
 
-  // update(id: number, updateBookDto: UpdateBookDto) {
-  //   return `This action updates a #${id} book`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} book`;
-  // }
+  async findOne(isbn: string) {
+    try {
+      const TTBKey = process.env.API_TTB_KEY;
+      const baseUrl = `http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx`;
+      const params = new URLSearchParams({
+        TTBKey: TTBKey ?? '',
+        ItemId: isbn,
+        ItemIdType: 'ISBN13',
+        output: 'js',
+        Version: '20131101',
+      });
+      const fullUrl = `${baseUrl}?${params.toString()}`;
+      // console.log(`[BooksService] Requesting URL: ${fullUrl}`); // 3. 최종 요청 URL 확인
+      const response = await this.httpService.axiosRef.get(fullUrl);
+      // console.log(response.data);
+      return response.data as AladinBookResponse;
+    } catch (error) {
+      console.error(error);
+      throw new BadRequestException('Failed to fetch book details');
+    }
+  }
 }

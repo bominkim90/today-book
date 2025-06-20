@@ -5,7 +5,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { BooksModule } from './books/books.module';
-import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -13,17 +12,17 @@ import { UsersModule } from './users/users.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'today_book',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, // Set to false in production
-      logging: true, // Enable logging for debugging,
-    }),
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql',
+    //   host: 'localhost',
+    //   port: 3306,
+    //   username: 'root',
+    //   password: 'root',
+    //   database: 'today_book',
+    //   entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    //   synchronize: true, // Set to false in production
+    //   logging: true, // Enable logging for debugging,
+    // }),
     // TypeOrmModule.forRoot({
     //   type: process.env.DB_TYPE as 'mysql' | 'postgres',
     //   host: process.env.DB_HOST,
@@ -40,7 +39,6 @@ import { UsersModule } from './users/users.module';
     // }),
 
     BooksModule,
-    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
