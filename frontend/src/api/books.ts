@@ -3,7 +3,9 @@ import axios from '../lib/axios';
 // 책 '목록' GET
 export async function getBookList(type: string, page: number, limit: number) {
   try {
+    // /api/books?type='today'&page=1&limit=10
     const res = await axios.get(`/api/books?type=${type}&page=${page}&limit=${limit}`);
+    console.log("res :", res);
     return res.data;
   } catch (err) {
     console.log('책 목록 GET 요청 실패 : ', err);
