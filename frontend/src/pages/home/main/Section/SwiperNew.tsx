@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 // import useBookList from '../../../../hooks/useBookList';
 
 interface TBookData {
@@ -20,9 +21,9 @@ interface SectionSwiperProps {
 
 export default function SectionSwiper({ LIMIT, bookData, swiperLeng }: SectionSwiperProps) {
   const navigate = useNavigate();
-  // const {bookData, error} = useBookList('today', 1, LIMIT);
-  // if (error) return <p>에러!</p>;
-  // if (!bookData) return <p>로딩 중...</p>;
+  //   const {bookData, error} = useBookList('today', 1, LIMIT);
+  //   if (error) return <p>에러!</p>;
+  //   if (!bookData) return <p>로딩 중...</p>;
 
   return (
     <Swiper spaceBetween={12} slidesPerView={swiperLeng}>

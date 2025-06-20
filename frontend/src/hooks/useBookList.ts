@@ -9,7 +9,7 @@ export default function useBookList(type: string, page: number, limit: number) {
     getBookList(type, page, limit)
       .then((result) => setBookData(result))
       .catch((error) => setError(error));
-  }, [type, page, limit]);
+  }, []);
 
   return { bookData, error };
 }
