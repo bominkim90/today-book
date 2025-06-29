@@ -9,5 +9,3 @@ export default function HomeIndex() {
     </>
   );
 }
-
-// 여기 수정
