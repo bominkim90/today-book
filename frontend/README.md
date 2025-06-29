@@ -170,31 +170,8 @@ VITE_API_URL=http://localhost:3000
 - 백엔드 서버는 `http://localhost:3000`에서 실행되어야 합니다
 - API 엔드포인트는 `/api` 프리픽스를 사용합니다
 
-## 📱 브라우저 지원
-
-- Chrome (최신 버전)
-- Firefox (최신 버전)
-- Safari (최신 버전)
-- Edge (최신 버전)
-
-## 🤝 기여하기
-
-1. 이 저장소를 포크합니다
-2. 새로운 브랜치를 생성합니다 (`git checkout -b feature/amazing-feature`)
-3. 변경사항을 커밋합니다 (`git commit -m 'Add some amazing feature'`)
-4. 브랜치에 푸시합니다 (`git push origin feature/amazing-feature`)
-5. Pull Request를 생성합니다
-
-## 📄 라이선스
-
-이 프로젝트는 MIT 라이선스 하에 배포됩니다.
 
 ## 👥 팀
 
 - 프론트엔드 개발자
 - 백엔드 개발자
-- 디자이너
-
-## 📞 문의
-
-프로젝트에 대한 문의사항이 있으시면 이슈를 생성해주세요.
