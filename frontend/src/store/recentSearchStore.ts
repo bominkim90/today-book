@@ -16,13 +16,15 @@ export const useRecentSearchStore = create<RecentSearchStore>((set, get) => ({
     localStorage.setItem('searchBookRecords', JSON.stringify(list));
     set({ recentSearches: list });
   },
-  addSearchKeyword: (keyword) =>
+  addSearchKeyword: (keyword) => {
+    if(keyword.trim() === '') return;
     set((state) => {
       const filtered = state.recentSearches.filter((item) => item !== keyword);
       const newList = [keyword, ...filtered].slice(0, 10);
       localStorage.setItem('searchBookRecords', JSON.stringify(newList));
       return { recentSearches: newList };
-    }),
+    })
+  },
   loadFromStorage: () => {
     const stored = JSON.parse(localStorage.getItem('searchBookRecords') || '[]');
     set({ recentSearches: stored });

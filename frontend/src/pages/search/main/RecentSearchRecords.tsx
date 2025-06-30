@@ -30,7 +30,8 @@ export default function SearchResults() {
             <button
               className="bg-100 ml-[8px] w-[14px] h-[14px]"
               style={{ backgroundImage: "url('/icons/button/xBtn.svg')" }}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 removeOneStorage(keyword);
               }}
             >
