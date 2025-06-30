@@ -1,7 +1,7 @@
-// src/store/searchStore.ts
+// src/store/RecentSearchStore.ts
 import { create } from 'zustand';
 
-type SearchStore = {
+type RecentSearchStore = {
   recentSearches: string[];
   setRecentSearches: (list: string[]) => void;
   addSearchKeyword: (keyword: string) => void;
@@ -10,7 +10,7 @@ type SearchStore = {
   removeOneStorage: (value: string) => void;
 };
 
-export const useSearchStore = create<SearchStore>((set, get) => ({
+export const useRecentSearchStore = create<RecentSearchStore>((set, get) => ({
   recentSearches: [],
   setRecentSearches: (list) => {
     localStorage.setItem('searchBookRecords', JSON.stringify(list));

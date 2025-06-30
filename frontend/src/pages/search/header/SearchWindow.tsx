@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { useSearchStore } from '../../../store/searchStore';
-// import { getBookList } from '../../../api/books';
+import { useRecentSearchStore } from '../../../store/recentSearchStore';
+import useBookSearch from '../../../hooks/useBookSearch';
 
 export default function SearchWindow() {
-  const addSearchKeyword = useSearchStore((state) => state.addSearchKeyword);
+  const addSearchKeyword = useRecentSearchStore((state) => state.addSearchKeyword);
   const [searchValue, setSearchValue] = useState<string>('');
+  const { searchBooks } = useBookSearch();
 
-  async function searchBooks() {
-    // const result = await getBookList();
-    // console.log('searchBooks API result : ', result);
-    console.log('책 검색 API 요청 결과');
+  async function handleSearch() {
+    await searchBooks(searchValue);
   }
 
   return (
@@ -17,7 +16,7 @@ export default function SearchWindow() {
       onSubmit={(e) => {
         e.preventDefault();
         addSearchKeyword(searchValue);
-        searchBooks();
+        handleSearch();
       }}
       className="flex items-center h-[40px] w-[calc(100%-32px)] pl-[24px] pr-[12px] rounded-full bg-[#F3F4F6]"
     >
