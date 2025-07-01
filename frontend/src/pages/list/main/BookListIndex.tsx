@@ -4,7 +4,7 @@ import InfiniteBookList from "./InfiniteBookList";
 import Loading from "../../../components/Loading";
 
 interface BookListProps {
-  bookType: string;
+  bookType: string | undefined;
 }
 
 export default function BookList({ bookType }: BookListProps) {
@@ -20,8 +20,6 @@ export default function BookList({ bookType }: BookListProps) {
   function appendSearchResults(newResults: Book[]) {
     setSearchResults(prev => [...prev, ...newResults]);
   }
-
-  if(!isLoading && searchResults.length === 0) return <div>책 목록이 존재하지 않습니다.</div>;
 
   return (
     <div>

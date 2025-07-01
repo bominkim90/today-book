@@ -19,7 +19,7 @@ export default function MainIndex() {
         LIMIT={10}
       />
 
-      <SectionIndex listType={3} title={'베스트셀러'} moreBtnFlag={true} LIMIT={3} />
+      <SectionIndex listType={3} title={'best'} moreBtnFlag={true} LIMIT={3} />
     </main>
   );
 }

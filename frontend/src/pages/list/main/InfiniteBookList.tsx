@@ -19,6 +19,7 @@ interface InfiniteBookListProps {
 
 export default function InfiniteBookList({ bookType, searchResults, setSearchResults, appendSearchResults, page, limit, hasMore, isLoading, setPage, setHasMore, setLoading }: InfiniteBookListProps) {
   const navigate = useNavigate();
+  const observer = useRef<IntersectionObserver | null>(null);
 
   // 데이터 불러오기
   useEffect(() => {
@@ -32,8 +33,6 @@ export default function InfiniteBookList({ bookType, searchResults, setSearchRes
       })
       .finally(() => setLoading(false));
   }, [page]);
-  
-  const observer = useRef<IntersectionObserver | null>(null);
 
   // 무한 스크롤 감지
   const lastElementRef = useCallback((node: Element | null) => { // node는 React가 자동으로 전달해주는 DOM 요소
@@ -51,6 +50,8 @@ export default function InfiniteBookList({ bookType, searchResults, setSearchRes
   function goDetail(isbn13: number) {
     navigate(`/detail/${isbn13}`);
   }
+
+  if(!isLoading && searchResults.length === 0) return <div>책 목록이 존재하지 않습니다.</div>;
 
   return (
     <ul className="grid grid-cols-2 gap-4">
