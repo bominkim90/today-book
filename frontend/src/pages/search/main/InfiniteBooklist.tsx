@@ -26,7 +26,7 @@ export default function InfiniteBookList() {
   }, [page, searchQuery]);
 
   // 무한 스크롤 감지
-  const lastElementRef = useCallback(node => {
+  const lastElementRef = useCallback((node: Element | null) => {
     if (isLoading) return;
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver(entries => {
