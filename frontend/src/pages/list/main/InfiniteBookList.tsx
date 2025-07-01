@@ -36,7 +36,7 @@ export default function InfiniteBookList({ bookType, searchResults, setSearchRes
   const observer = useRef<IntersectionObserver | null>(null);
 
   // 무한 스크롤 감지
-  const lastElementRef = useCallback(node => {
+  const lastElementRef = useCallback((node: Element | null) => { // node는 React가 자동으로 전달해주는 DOM 요소
     if (isLoading) return;
     if (observer.current) observer.current.disconnect(); // 이전 관찰자 제거
     observer.current = new IntersectionObserver(entries => {
@@ -57,6 +57,7 @@ export default function InfiniteBookList({ bookType, searchResults, setSearchRes
       {searchResults.map((book, idx) => (
         <li 
         key={book.isbn13}
+        // ref는 React에서 DOM 요소나 컴포넌트 인스턴스에 직접 접근할 수 있게 해주는 특별한 속성.
          ref={idx === searchResults.length - 1 ? lastElementRef : null}
           onClick={() => goDetail(book.isbn13)}
          >
