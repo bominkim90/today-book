@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Book } from "../../../models/book.model";
 import InfiniteBookList from "./InfiniteBookList";
 import Loading from "../../../components/Loading";

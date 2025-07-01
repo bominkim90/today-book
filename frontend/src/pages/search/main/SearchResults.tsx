@@ -1,10 +1,10 @@
 import { useResultSearchStore } from '../../../store/resultSearchStore';
 import Loading from '../../../components/Loading';
 import InfiniteBookList from './InfiniteBooklist';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 export default function SearchResults() {
-  const { searchResults, isLoading, searchQuery, clearResults } = useResultSearchStore();
+  const { searchResults, isLoading, searchQuery } = useResultSearchStore();
 
   // // 검색어가 바뀌면 초기화
   // useEffect(() => {
