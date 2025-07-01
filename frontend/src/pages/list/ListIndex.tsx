@@ -9,7 +9,7 @@ export default function ListIndex() {
   return (
     <>
       <HeaderIndex bookType={bookType} />
-      <main className="flex-1 overflow-y-auto p-[16px]">
+      <main className="layout-main">
         <BookList bookType={bookType} />
       </main>
     </>
