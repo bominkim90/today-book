@@ -8,7 +8,7 @@ export default function SearchResults() {
 
   // // 검색어가 바뀌면 초기화
   // useEffect(() => {
-  //   clearResults();
+    // clearResults();
   // }, [searchQuery]);
 
   // 검색어가 없을 때 (초기 상태)
