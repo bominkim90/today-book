@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply max-w-[768px] mx-auto;
+    @apply max-w-[375px] mx-auto border-x;
   }
 
   input,
@@ -19,7 +19,6 @@
   h1 {
     @apply text-lg text-textPrimary;
   }
-
 }
 
 @layer components {
@@ -49,7 +48,7 @@
   .book-container {
     @apply aspect-book;
   }
-  
+
   .book-container .book-cover {
     @apply rounded-xs block bg-white object-cover w-full h-full;
   }
@@ -65,7 +64,7 @@
   .card-horizontal .book-title {
     @apply text-base line-clamp-1;
   }
-  
+
   .card-horizontal .book-author {
     @apply line-clamp-1;
   }
