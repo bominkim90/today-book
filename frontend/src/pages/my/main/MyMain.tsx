@@ -14,7 +14,10 @@ export default function MyMain() {
 
   if (isLoading) return <Loading />;
   if (isError) return <div>에러가 발생하였습니다.</div>;
-  if (!userInfo) return navigate('/login');
+  if (!userInfo) {
+    navigate('/login');
+    return null;
+  }
   console.log('userInfo: ', userInfo);
 
   return (
