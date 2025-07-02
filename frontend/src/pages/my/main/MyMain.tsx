@@ -14,6 +14,8 @@ export default function MyMain() {
 
   if (isLoading) return <Loading />;
   if (isError) return <div>에러가 발생하였습니다.</div>;
+  if (!userInfo) return navigate('/login');
+  console.log('userInfo: ', userInfo);
 
   return (
     <main className="layout-main space-y-6">

@@ -2,6 +2,7 @@ import Logo from '../../components/Logo';
 
 export default function Login() {
   const loginUrl = import.meta.env.VITE_API_URL + '/api/auth/kakao';
+  console.log(loginUrl);
 
   return (
     <div className="layout-main flex flex-col justify-center items-center">
