@@ -17,7 +17,7 @@ export const getReview = async (isbn13: number) => {
 // 리뷰 수정
 export const putReview = async (isbn13: number, content: string) => {
   const response = await axios.put(`/api/reviews/${isbn13}`, content);
-  console.log('리뷰 수정정 응답 : ', response);
+  console.log('리뷰 수정 응답 : ', response);
   return response.data;
 };
 

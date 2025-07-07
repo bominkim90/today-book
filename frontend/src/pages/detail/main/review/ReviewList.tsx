@@ -1,38 +1,39 @@
 import { useState } from 'react';
-import { useGetReview } from '../../../../hooks/useReviews';
+import { useDeleteReview, useGetReview, usePutReview } from '../../../../hooks/useReviews';
 import type { Review } from '../../../../models/review.model';
 import { useParams } from 'react-router-dom';
 
 export default function ReviewList() {
-  // 임시 데이터터
-  const [reviews, setReviews] = useState<Review[]>([
-    {
-      id: 1,
-      name: '홍길동',
-      content: '이 책은 정말 좋아요!',
-      date: '2025-01-01',
-      image: '',
-    },
-    {
-      id: 2,
-      name: '김보민',
-      content: '어느날 소년이 시골에서 이상한 생물체를 마주하게 되는데...',
-      date: '2025-01-01',
-      image: '',
-    },
-  ]);
+  // 임시 데이터
+  // const [reviews, setReviews] = useState<Review[]>([
+  //   {
+  //     id: 1,
+  //     name: '홍길동',
+  //     content: '이 책은 정말 좋아요!',
+  //     date: '2025-01-01',
+  //     image: '',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: '김보민',
+  //     content: '어느날 소년이 시골에서 이상한 생물체를 마주하게 되는데...',
+  //     date: '2025-01-01',
+  //     image: '',
+  //   },
+  // ]);
 
-  // const { isbn13 } = useParams();
-  // console.log(isbn13);
-  // const { data: reviews = [], isLoading, isError } = useGetReview(Number(isbn13));
+  const putReview = usePutReview();
+  const deleteReview = useDeleteReview();
+  const { isbn13 } = useParams();
+  console.log(isbn13);
+  const { data: reviews = [], isLoading, isError } = useGetReview(Number(isbn13));
   const [showAll, setShowAll] = useState(false);
+  const displayedReviews = showAll ? reviews : reviews.slice(0, 2);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editedContent, setEditedContent] = useState('');
 
-  // if (isLoading) return <p>리뷰 불러오는 중...</p>;
-  // if (isError) return <p>리뷰 불러오는 중 오류가 발생했습니다.</p>;
-
-  const displayedReviews = showAll ? reviews : reviews.slice(0, 2);
+  if (isLoading) return <p>리뷰 불러오는 중...</p>;
+  if (isError) return <p>리뷰 불러오는 중 오류가 발생했습니다.</p>;
 
   const handleEdit = (id: number, currentContent: string) => {
     setEditingId(id);
@@ -44,14 +45,15 @@ export default function ReviewList() {
     setEditedContent('');
   };
 
-  const handleSave = (id: number) => {
-    setReviews((prev) => prev.map((r) => (r.id === id ? { ...r, content: editedContent } : r)));
+  // 리뷰 수정
+  const handleSave = () => {
+    putReview.mutate({ isbn13: Number(isbn13), content: editedContent });
     setEditingId(null);
     setEditedContent('');
   };
 
-  const handleDelete = (id: number) => {
-    setReviews((prev) => prev.filter((r) => r.id !== id));
+  const handleDelete = () => {
+    deleteReview.mutate(Number(isbn13));
   };
 
   return (
@@ -73,10 +75,7 @@ export default function ReviewList() {
             <div className="text-[12px] text-gray-500 space-x-2 flex items-center gap-[8px]">
               {editingId === review.id ? (
                 <>
-                  <button
-                    onClick={() => handleSave(review.id)}
-                    className="text-blue-600 flex items-center"
-                  >
+                  <button onClick={() => handleSave()} className="text-blue-600 flex items-center">
                     <img src="/icons/actions/complete.svg" alt="완료" className="w-4 h-4" />
                     완료
                   </button>
@@ -94,7 +93,7 @@ export default function ReviewList() {
                     <img src="/icons/actions/edit.svg" alt="수정" className="w-4 h-4" />
                     수정
                   </button>
-                  <button onClick={() => handleDelete(review.id)} className="flex items-center">
+                  <button onClick={() => handleDelete()} className="flex items-center">
                     <img src="/icons/actions/delete.svg" alt="삭제" className="w-4 h-4" />
                     삭제
                   </button>
