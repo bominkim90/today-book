@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { usePostReview } from '../../../../hooks/useReviews';
 import { useParams } from 'react-router-dom';
-import LoginRequiredModal from '../../../../components/LoginRequiredModal';
+import LoginRequiredModal from '../../../../components/loginRequireModal';
 
 export default function ReviewWrite() {
   const { isbn13 } = useParams();
