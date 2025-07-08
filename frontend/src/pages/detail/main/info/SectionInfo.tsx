@@ -6,9 +6,10 @@ export default function SectionInfo() {
   const { isbn13 } = useParams<string>();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const { bookData, error } = useBookDetail(Number(isbn13));
-  if (error) return <p>에러!</p>;
-  if (!bookData) return <p>로딩 중...</p>;
+  const { data: bookData, isLoading, isError } = useBookDetail(Number(isbn13));
+
+  if (isError) return <p>에러!</p>;
+  if (isLoading || !bookData) return <p>로딩 중...</p>;
 
   const description = bookData.description;
   const isLongText = description.length > 100;
