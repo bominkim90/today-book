@@ -27,6 +27,7 @@ export default function ReviewList() {
   const { isbn13 } = useParams();
   console.log(isbn13);
   const { data: reviews = [], isLoading, isError } = useGetReview(Number(isbn13));
+  console.log('reviews: ', reviews);
   const [showAll, setShowAll] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editedContent, setEditedContent] = useState('');
