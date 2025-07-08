@@ -5,7 +5,7 @@ import { getReview, postReview, putReview, deleteReview } from '../api/reviews';
 // 리뷰 조회
 export const useGetReview = (isbn13: number) => {
   return useQuery({
-    queryKey: ['review', isbn13],
+    queryKey: ['reviews', isbn13],
     queryFn: () => getReview(isbn13),
     staleTime: 1000 * 60,
   });
@@ -19,7 +19,7 @@ export const usePostReview = () => {
     mutationFn: ({ isbn13, content }: { isbn13: number; content: string }) =>
       postReview(isbn13, content),
     onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['review', variables.isbn13] });
+      queryClient.invalidateQueries({ queryKey: ['reviews', variables.isbn13] });
     },
   });
 };
@@ -32,7 +32,7 @@ export const usePutReview = () => {
     mutationFn: ({ isbn13, content }: { isbn13: number; content: string }) =>
       putReview(isbn13, content),
     onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['review', variables.isbn13] });
+      queryClient.invalidateQueries({ queryKey: ['reviews', variables.isbn13] });
     },
   });
 };
