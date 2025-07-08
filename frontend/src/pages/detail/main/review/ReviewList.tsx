@@ -31,7 +31,7 @@ export default function ReviewList() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editedContent, setEditedContent] = useState('');
 
-  const displayedReviews = showAll ? reviews : reviews.slice(0, 2);
+  // const displayedReviews = showAll ? reviews : reviews.slice(0, 2);
 
   if (isLoading) return <p>리뷰 불러오는 중...</p>;
   if (isError) return <p>리뷰 불러오는 중 오류가 발생했습니다.</p>;
@@ -59,7 +59,7 @@ export default function ReviewList() {
 
   return (
     <div>
-      {displayedReviews.map((review: Review) => (
+      {reviews.map((review: Review) => (
         <div
           key={review.id}
           className="space-y-4 p-[16px] mb-[24px] shadow-[inset_0_-1px_2px_-1px_rgba(0,0,0,0.1)]"
