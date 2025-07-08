@@ -28,9 +28,10 @@ export default function ReviewList() {
   console.log(isbn13);
   const { data: reviews = [], isLoading, isError } = useGetReview(Number(isbn13));
   const [showAll, setShowAll] = useState(false);
-  const displayedReviews = showAll ? reviews : reviews.slice(0, 2);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editedContent, setEditedContent] = useState('');
+
+  const displayedReviews = showAll ? reviews : reviews.slice(0, 2);
 
   if (isLoading) return <p>리뷰 불러오는 중...</p>;
   if (isError) return <p>리뷰 불러오는 중 오류가 발생했습니다.</p>;
