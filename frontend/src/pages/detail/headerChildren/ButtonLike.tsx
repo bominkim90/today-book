@@ -11,17 +11,9 @@ interface ButtonLikeProps {
 
 export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
   const [showLoginModal, setShowLoginModal] = useState(false);
-
-  // 로그인 상태 확인
   const { data: userInfo, isError: userError } = useUserQuery();
-
-  // 좋아요 상태 확인
   const { data: bookData, isError: bookError } = useBookDetail(Number(isbn13));
-
-  // React Query의 QueryClient
   const queryClient = useQueryClient();
-
-  // 좋아요 추가/삭제 뮤테이션 (성공 시 캐시 무효화)
   const { mutate: postLike, isPending: isPostingLike } = usePostLikes();
   const { mutate: deleteLike, isPending: isDeletingLike } = useDeleteLikes();
 
@@ -31,7 +23,6 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
       return;
     }
     if (bookData?.isLiked) {
-      // 좋아요 되어있으면 삭제
       deleteLike(isbn13, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['books', Number(isbn13)] });
@@ -41,7 +32,6 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
         },
       });
     } else {
-      // 좋아요가 안되어있으면 추가
       postLike(
         { isbn13 },
         {

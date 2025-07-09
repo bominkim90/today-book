@@ -23,7 +23,6 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
       },
       onError: (error) => {
         console.error('좋아요 삭제 실패:', error);
-        // 에러 시 추가 처리 (예: 에러 메시지 표시)
         alert('좋아요 삭제에 실패했습니다. 다시 시도해주세요.');
       },
     });
