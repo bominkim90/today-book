@@ -30,12 +30,11 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
       setShowLoginModal(true);
       return;
     }
-
     if (bookData?.isLiked) {
       // 좋아요 되어있으면 삭제
       deleteLike(isbn13, {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['bookDetail', Number(isbn13)] });
+          queryClient.invalidateQueries({ queryKey: ['books', Number(isbn13)] });
         },
         onError: () => {
           console.log('좋아요 삭제 실패');
@@ -47,7 +46,7 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
         { isbn13 },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['bookDetail', Number(isbn13)] });
+            queryClient.invalidateQueries({ queryKey: ['books', Number(isbn13)] });
           },
           onError: () => {
             console.log('좋아요 추가 실패');
