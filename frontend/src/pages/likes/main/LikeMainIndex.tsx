@@ -4,7 +4,7 @@ import BookLiked from './BookLiked';
 import type { Book } from '../../../models/book.model';
 import useUserQuery from '../../../hooks/useUserQuery';
 import LoginRequiredModal from '../../../components/modals/LoginRequireModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Like {
   book: Book;
@@ -16,7 +16,12 @@ interface Like {
 export default function LikeMainIndex() {
   const { isError: userError } = useUserQuery();
   const [showLoginModal, setShowLoginModal] = useState(false);
-  if (userError) setShowLoginModal(true);
+
+  // if (userError) setShowLoginModal(true); // 컴포넌트를 불러오면서 실행 => 렌더링 중 state를 변경 => 재렌더링 => state변경 ==> 무한 루프 error
+  // useEffect는 컴포넌트가 "화면에 렌더링된 후" 실행되는 비동기적인 사이드 이펙트 함수.
+  useEffect(() => {
+    if (userError) setShowLoginModal(true);
+  }, [userError]);
 
   const { data: likes, isLoading, isError } = useGetLikes();
   console.log('likes: ', likes);
