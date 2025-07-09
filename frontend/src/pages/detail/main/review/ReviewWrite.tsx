@@ -6,7 +6,9 @@ import AlertModal from '../../../../components/modals/alertModal';
 
 export default function ReviewWrite() {
   const { isbn13 } = useParams();
-  const { mutate: postReview } = usePostReview();
+  if (!isbn13) return <div>책 정보를 찾을 수 없습니다.</div>;
+
+  const { mutate: postReview, isPending } = usePostReview();
   const maxTextLength = 100;
   const [text, setText] = useState<string>('');
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -21,13 +23,13 @@ export default function ReviewWrite() {
   }
 
   // 리뷰 작성
-  async function addReview() {
-    if(text.trim() === '') {
+  function addReview() {
+    if (text.trim() === '') {
       setShowAlertModal(true);
       return;
     }
     postReview(
-      { isbn13: Number(isbn13), content: text },
+      { isbn13: Number(isbn13), text: text },
       {
         onSuccess: () => {
           setText('');
@@ -56,14 +58,21 @@ export default function ReviewWrite() {
             <span>{text.length}</span> / {maxTextLength}
           </p>
           <button
-            className="text-sm mt-[8px] bg-mainBlue text-white px-[16px] py-[8px] rounded-[8px]"
+            className={`text-sm mt-[8px] bg-mainBlue text-white px-[16px] py-[8px] rounded-[8px]
+              ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
             onClick={addReview}
+            disabled={isPending}
           >
-            리뷰 작성
+            {isPending ? '리뷰 작성 중...' : '리뷰 작성'}
           </button>
         </div>
         {showLoginModal && <LoginRequiredModal onCancel={() => setShowLoginModal(false)} />}
-        {showAlertModal && <AlertModal message="한 글자 이상 입력해주세요." onConfirm={() => setShowAlertModal(false)} />}
+        {showAlertModal && (
+          <AlertModal
+            message="한 글자 이상 입력해주세요."
+            onConfirm={() => setShowAlertModal(false)}
+          />
+        )}
       </div>
     </div>
   );
