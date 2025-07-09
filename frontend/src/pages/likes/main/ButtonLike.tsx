@@ -48,7 +48,14 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
           onCancel={() => setShowModal(false)}
         />
       )}
-      {showToast && <Toast message="찜 목록 삭제 성공" onClose={() => setShowToast(false)} />}
+      {showToast && (
+        <Toast
+          visible={showToast}
+          message="찜 목록 삭제 성공"
+          onClose={() => setShowToast(false)}
+          duration={4000}
+        />
+      )}
     </>
   );
 }
