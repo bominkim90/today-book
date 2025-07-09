@@ -10,7 +10,7 @@ export default function Layout() {
   // }
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="layout">
       <Outlet />
       <BottomNav />
     </div>
