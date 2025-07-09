@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { usePostReview } from '../../../../hooks/useReviews';
 import { useParams } from 'react-router-dom';
 import LoginRequiredModal from '../../../../components/modals/LoginRequireModal';
+import AlertModal from '../../../../components/modals/alertModal';
 
 export default function ReviewWrite() {
   const { isbn13 } = useParams();
   const { mutate: postReview } = usePostReview();
-  const maxTextLength = 500;
+  const maxTextLength = 100;
   const [text, setText] = useState<string>('');
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showAlertModal, setShowAlertModal] = useState(false);
 
   function limitTextLength(text: string) {
     if (text.length > maxTextLength) {
@@ -20,6 +22,10 @@ export default function ReviewWrite() {
 
   // 리뷰 작성
   async function addReview() {
+    if(text.trim() === '') {
+      setShowAlertModal(true);
+      return;
+    }
     postReview(
       { isbn13: Number(isbn13), content: text },
       {
@@ -57,6 +63,7 @@ export default function ReviewWrite() {
           </button>
         </div>
         {showLoginModal && <LoginRequiredModal onCancel={() => setShowLoginModal(false)} />}
+        {showAlertModal && <AlertModal message="한 글자 이상 입력해주세요." onConfirm={() => setShowAlertModal(false)} />}
       </div>
     </div>
   );
