@@ -16,11 +16,12 @@ export default function ReviewList() {
   const [editedContent, setEditedContent] = useState('');
   // 유저 데이터
   const { data: userData, isError: userError } = useUserQuery();
-  console.log('userData: ', userData);
+  console.log('userData: ', reviews);
 
   if (isLoading) return <p className="error-message">리뷰 불러오는 중...</p>;
   if (isError) return <p className="error-message">리뷰 불러오는 중 오류가 발생했습니다.</p>;
   if (reviews.length === 0) return <p className="error-message">리뷰가 없습니다.</p>;
+  console.log('reviews: ', reviews);
 
   const handleEdit = (id: number, currentContent: string) => {
     setEditingId(id);
@@ -60,13 +61,14 @@ export default function ReviewList() {
             <div className="flex items-center">
               <img
                 className="w-[40px] h-[40px] rounded-full mr-[8px]"
-                src={userData.image || '/imgs/user_dummy_review.png'}
-                alt={`${userData.nickname}의 프로필`}
+                src={review.image || '/imgs/user_dummy_review.png'}
+                alt={`${review.nickname}의 프로필`}
               />
-              <p className="text-[14px] text-mainBlack">{userData.nickname}</p>
+              <p className="text-[14px] text-mainBlack">{review.nickname}</p>
             </div>
+
             {/* 리뷰 수정 */}
-            {review.userId === userData?.id && !userError && (
+            {!userError && review.userId === userData?.id && (
               <div className="text-[12px] text-gray-500 space-x-2 flex items-center gap-[8px]">
                 {editingId === review.id ? (
                   <>

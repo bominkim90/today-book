@@ -4,4 +4,5 @@ export interface Review {
   content: string;
   createdAt: string;
   userId: number;
+  nickname: string;
 }
