@@ -7,7 +7,7 @@ export default function BookLiked({ bookData }: { bookData: Book }) {
   const navigate = useNavigate();
 
   function goDetail() {
-    navigate(`/book/${isbn13}`);
+    navigate(`/detail/${isbn13}`);
   }
 
   return (
