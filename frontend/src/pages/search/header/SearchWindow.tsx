@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecentSearchStore } from '../../../store/useRecentSearchStore';
 import useBookSearch from '../../../hooks/useBookSearch_old';
 
@@ -25,6 +25,13 @@ export default function SearchWindow() {
   //   resultOfautocomplete(searchValue);
   // }, [searchValue]);
 
+  // 검색창 자동 focus
+  const inputRef = useRef<HTMLInputElement>(null); // 1. input에 사용할 ref 선언
+  useEffect(() => {
+    // 2. 마운트 시 자동 focus
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <form
       onSubmit={(e) => {
@@ -36,6 +43,7 @@ export default function SearchWindow() {
       className="flex items-center h-10 w-[calc(100%-2rem)] pl-6 pr-3 rounded-full bg-searchBg"
     >
       <input
+        ref={inputRef}
         type="text"
         className="min-w-0 flex-1 h-full "
         onChange={(e) => {

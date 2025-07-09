@@ -40,7 +40,7 @@ export default function ReviewWrite() {
       {/* 리뷰 작성 */}
       <div className="p-[16px] bg-cardBg rounded-md mb-[24px]">
         <textarea
-          className="w-full h-[100px] p-[12px] border border-gray-300 bg-white rounded-md text-sm"
+          className="w-full h-[100px] p-[12px] border border-gray-300 bg-white rounded-md"
           placeholder="이 책에 대한 리뷰를 작성해주세요."
           value={text}
           onChange={(e) => limitTextLength(e.target.value)}

@@ -12,7 +12,6 @@
   }
 
   input,
-  button,
   textarea {
     @apply bg-transparent text-[16px];
   }
