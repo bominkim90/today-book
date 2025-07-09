@@ -29,7 +29,7 @@ export default function ReviewWrite() {
       return;
     }
     postReview(
-      { isbn13: Number(isbn13), text: text },
+      { isbn13: Number(isbn13), content: text },
       {
         onSuccess: () => {
           setText('');

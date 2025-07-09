@@ -1,8 +1,8 @@
 import axios from '../lib/axios';
 
 // 리뷰 작성
-export const postReview = async (isbn13: number, text: string) => {
-  const response = await axios.post(`/api/reviews/${isbn13}`, { text });
+export const postReview = async (isbn13: number, content: string) => {
+  const response = await axios.post(`/api/reviews/${isbn13}`, { content });
   console.log('리뷰 작성 응답 : ', response);
   return response.data.item;
 };
@@ -15,8 +15,8 @@ export const getReview = async (isbn13: number) => {
 };
 
 // 리뷰 수정
-export const putReview = async (isbn13: number, text: string) => {
-  const response = await axios.put(`/api/reviews/${isbn13}`, { text });
+export const putReview = async (isbn13: number, content: string) => {
+  const response = await axios.put(`/api/reviews/${isbn13}`, { content });
   console.log('리뷰 수정 응답 : ', response);
   return response.data.item;
 };

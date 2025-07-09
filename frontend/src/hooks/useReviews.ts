@@ -16,7 +16,8 @@ export const usePostReview = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ isbn13, text }: { isbn13: number; text: string }) => postReview(isbn13, text),
+    mutationFn: ({ isbn13, content }: { isbn13: number; content: string }) =>
+      postReview(isbn13, content),
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['reviews', variables.isbn13] });
     },
@@ -28,7 +29,8 @@ export const usePutReview = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ isbn13, text }: { isbn13: number; text: string }) => putReview(isbn13, text),
+    mutationFn: ({ isbn13, content }: { isbn13: number; content: string }) =>
+      putReview(isbn13, content),
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['reviews', variables.isbn13] });
     },

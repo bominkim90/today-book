@@ -2,7 +2,7 @@ export interface Review {
   id: number;
   image: string;
   name: string;
-  text: string;
+  content: string;
   date: string;
   writerId: number;
 }
