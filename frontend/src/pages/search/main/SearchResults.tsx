@@ -28,10 +28,8 @@ export default function SearchResults() {
       </div>
     );
   }
-
   if (isLoading) return <Loading />;
   if (isError) return <div>에러가 발생하였습니다.</div>;
-
   if (!isLoading && allBooks.length === 0) {
     return (
       <div className="text-center py-8">
@@ -43,9 +41,21 @@ export default function SearchResults() {
 
   return (
     <div>
-      <h2 className="section-title mb-4">
-        {searchQuery} 검색 결과 ({allBooks.length}건)
-      </h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="section-title">
+          <span className="text-mainBlue">{searchQuery}</span> 검색 결과 ({allBooks.length}건)
+        </h2>
+        <button
+          className="pr-[20px]"
+          style={{
+            background: 'right center/20px no-repeat',
+            backgroundImage: `url('/icons/button/reset.svg')`,
+          }}
+          onClick={() => clearResults()}
+        >
+          초기화
+        </button>
+      </div>
       <InfiniteBookList
         books={allBooks}
         fetchNextPage={fetchNextPage}
