@@ -72,12 +72,6 @@ export default function ReviewWrite() {
             onClick={addReview}
             disabled={isPending}
           >
-            {showDepleReviewAlertModal && (
-              <AlertModal
-                message="이미 리뷰를 작성하셨습니다."
-                onConfirm={() => setShowDepleReviewAlertModal(false)}
-              />
-            )}
             {isPending ? '리뷰 작성 중...' : '리뷰 작성'}
           </button>
         </div>
@@ -86,6 +80,12 @@ export default function ReviewWrite() {
           <AlertModal
             message="한 글자 이상 입력해주세요."
             onConfirm={() => setShowAlertModal(false)}
+          />
+        )}
+        {showDepleReviewAlertModal && (
+          <AlertModal
+            message="이미 리뷰를 작성하셨습니다."
+            onConfirm={() => setShowDepleReviewAlertModal(false)}
           />
         )}
       </div>
