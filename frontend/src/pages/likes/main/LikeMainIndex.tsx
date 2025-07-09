@@ -2,6 +2,9 @@ import Loading from '../../../components/Loading';
 import { useGetLikes } from '../../../hooks/useLikes';
 import BookLiked from './BookLiked';
 import type { Book } from '../../../models/book.model';
+import useUserQuery from '../../../hooks/useUserQuery';
+import LoginRequiredModal from '../../../components/modals/LoginRequireModal';
+import { useNavigate } from 'react-router-dom';
 
 interface Like {
   book: Book;
@@ -11,6 +14,17 @@ interface Like {
 }
 
 export default function LikeMainIndex() {
+  const { isError: userError } = useUserQuery();
+  const navigate = useNavigate();
+  if (userError) {
+    return (
+      <LoginRequiredModal
+        onCancel={() => {
+          navigate('/login');
+        }}
+      />
+    );
+  }
   const { data: likes, isLoading, isError } = useGetLikes();
   console.log('likes: ', likes);
   if (isError) return <div>찜 목록을 불러오는 중 오류가 발생했습니다.</div>;
