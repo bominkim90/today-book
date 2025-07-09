@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useUserQuery from '../../../hooks/useUserQuery';
 import { usePostLikes, useDeleteLikes } from '../../../hooks/useLikes';
-import LoginRequireModal from '../../../components/LoginRequireModal';
+import LoginRequireModal from '../../../components/modals/LoginRequireModal';
 import useBookDetail from '../../../hooks/useBookDetail';
 
 interface ButtonLikeProps {
@@ -63,7 +63,7 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
     <>
       <button
         type="button"
-        className="bg-100 w-[32px] h-[32px] shrink-0"
+        className="bg-100 w-[32px] h-[32px] shrink-0 ml-auto"
         style={{
           backgroundImage:
             shouldShowLoginModal || !isLiked

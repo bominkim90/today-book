@@ -28,40 +28,35 @@ export default function SearchWindow() {
   // 검색창 자동 focus
   const inputRef = useRef<HTMLInputElement>(null); // 1. input에 사용할 ref 선언
   useEffect(() => {
-    // 2. 마운트 시 자동 focus
-    inputRef.current?.focus();
+    inputRef.current?.focus(); // 2. 마운트 시 자동 focus
   }, []);
 
   return (
     <form
+    className="flex items-center h-10 w-[calc(100%-2rem)] pl-6 pr-3 rounded-full bg-searchBg"
       onSubmit={(e) => {
         e.preventDefault();
         addSearchKeyword(searchValue);
         searchBooks(searchValue);
         setSearchValue('');
       }}
-      className="flex items-center h-10 w-[calc(100%-2rem)] pl-6 pr-3 rounded-full bg-searchBg"
     >
       <input
+        className="min-w-0 flex-1 h-full"
         ref={inputRef}
         type="text"
-        className="min-w-0 flex-1 h-full "
-        onChange={(e) => {
-          setSearchValue(e.target.value);
-        }}
-        onKeyDown={(e) => keyDownEsc(e.key)}
         value={searchValue}
         placeholder="도서 제목 또는 저자 검색"
+        onChange={(e) => setSearchValue(e.target.value)}
+        onKeyDown={(e) => keyDownEsc(e.key)}
       />
 
-      {searchValue && (
+      {searchValue.length > 0 && (
         <button
-          className="shrink-0 w-5 h-5 bg-100"
+          className="shrink-0 w-5 h-5 bg-100 mr-[8px]"
           style={{ backgroundImage: "url('/icons/button/clearSearch.svg')" }}
           type="button"
-          onClick={() => {
-            setSearchValue('');
-          }}
+          onClick={() => setSearchValue('')}
         ></button>
       )}
 

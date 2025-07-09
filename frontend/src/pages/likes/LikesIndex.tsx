@@ -1,10 +1,13 @@
-import LikeHeader from './header/LikeHeader';
+import Header from '../../layout/Header';
 import LikeMainIndex from './main/LikeMainIndex';
+import HeaderTitle from '../../components/HeaderTitle';
 
 export default function LikesIndex() {
   return (
     <>
-      <LikeHeader />
+      <Header>
+        <HeaderTitle title="찜 목록" />
+      </Header>
       <LikeMainIndex />
     </>
   );

@@ -96,7 +96,7 @@
   }
 
   .page-title {
-    @apply flex-1 text-center text-lg text-textPrimary;
+    @apply absolute left-1/2 -translate-x-1/2 flex-1 text-center text-lg text-textPrimary;
   }
 
   .error-message {

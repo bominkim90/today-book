@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import ConfirmModal from '../../../components/ConfirmModal';
+import ConfirmModal from '../../../components/modals/ConfirmModal';
 import { useDeleteLikes } from '../../../hooks/useLikes';
-import Toast from '../../../components/Toast';
+import Toast from '../../../components/modals/Toast';
 
 interface ButtonLikeProps {
   isbn13: number;
