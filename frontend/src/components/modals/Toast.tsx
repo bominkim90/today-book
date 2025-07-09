@@ -12,11 +12,8 @@ export default function Toast({ message, onClose, duration = 4000 }: ToastProps)
   useEffect(() => {
     const visibleTimer = setTimeout(() => {
       setVisible(false);
-    }, duration);
-
-    const closeTimer = setTimeout(() => {
-      onClose();
-    }, duration * 2);
+    }, duration - 1000);
+    const closeTimer = setTimeout(onClose, duration);
 
     return () => {
       clearTimeout(visibleTimer);
@@ -26,12 +23,9 @@ export default function Toast({ message, onClose, duration = 4000 }: ToastProps)
 
   return (
     <div
-      className={`fixed bottom-24 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-4 py-2 rounded-full shadow-md z-50 
-        ${visible ? 'opacity-100' : 'opacity-0'}
+      className={`transition-opacity duration-1000 fixed bottom-24 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-4 py-2 rounded-full shadow-md z-50 
+        ${visible ? 'opacity-100' : 'opacity-0 translate-y-10'}
       `}
-      style={{
-        transition: `opacity ${duration / 2000}s ease-in-out`,
-      }}
     >
       {message}
     </div>
