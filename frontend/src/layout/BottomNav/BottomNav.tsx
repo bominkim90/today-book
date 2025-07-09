@@ -1,8 +1,11 @@
 import NavBtn from './NavBtn';
 
 export default function BottomNav() {
+  const classNames =
+    'z-10 bg-white absolute bottom-0 left-0 w-full flex justify-center items-center p-[8px] h-[62px] shadow-sm border-t border-gray-200';
+
   return (
-    <nav className="layout-bottomNav">
+    <nav className={classNames}>
       <NavBtn href="/" />
       <NavBtn href="/search" />
       <NavBtn href="/likes" />
