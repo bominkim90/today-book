@@ -29,7 +29,7 @@
 
 @layer components {
   .layout {
-    @apply flex flex-col h-[100dvh];
+    @apply flex flex-col h-[100dvh] max-w-[400px] mx-auto absolute top-0 bottom-0 left-0 right-0 border-x-[1px] border-mainGray;
   }
 
   .layout-header {
