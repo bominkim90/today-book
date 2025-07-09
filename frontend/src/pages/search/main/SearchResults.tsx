@@ -18,7 +18,7 @@ export default function SearchResults() {
   const queryClient = useQueryClient();
   useEffect(() => {
     clearResults(); // 검색어 state 초기화
-    queryClient.invalidateQueries({ queryKey: ['search', searchQuery] }); // 캐시 초기화
+    queryClient.removeQueries({ queryKey: ['search'] }); // 캐시 초기화
   }, []);
 
   if (!searchQuery) {
