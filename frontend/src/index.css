@@ -90,4 +90,8 @@
   .page-title {
     @apply flex-1 text-center text-lg text-textPrimary;
   }
+
+  .error-message {
+    @apply text-textGray text-sm;
+  }
 }
