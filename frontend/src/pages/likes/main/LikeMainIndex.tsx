@@ -5,6 +5,7 @@ import type { Book } from '../../../models/book.model';
 import useUserQuery from '../../../hooks/useUserQuery';
 import LoginRequiredModal from '../../../components/modals/LoginRequireModal';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Like {
   book: Book;
@@ -14,6 +15,7 @@ interface Like {
 }
 
 export default function LikeMainIndex() {
+  const navigate = useNavigate();
   const { isError: userError } = useUserQuery();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { data: likes, isLoading, isError } = useGetLikes();
@@ -30,7 +32,7 @@ export default function LikeMainIndex() {
     return (
       <LoginRequiredModal
         onCancel={() => {
-          setShowLoginModal(false);
+          navigate('/login');
         }}
       />
     );
