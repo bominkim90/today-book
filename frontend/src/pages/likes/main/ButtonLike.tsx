@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ConfirmModal from '../../../components/modals/ConfirmModal';
 import { useDeleteLikes } from '../../../hooks/useLikes';
 import Toast from '../../../components/modals/Toast';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface ButtonLikeProps {
   isbn13: number;
@@ -11,15 +12,16 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
   const [showModal, setShowModal] = useState(false);
   const { mutate: deleteLikes } = useDeleteLikes();
   const [showToast, setShowToast] = useState(false);
+  const queryClient = useQueryClient();
 
   function removeLike() {
-    console.log('removeLike');
     setShowModal(false);
 
     deleteLikes(isbn13, {
       onSuccess: () => {
-        console.log('좋아요 삭제 성공');
         setShowToast(true);
+        queryClient.invalidateQueries({ queryKey: ['likes', 'me'] }); // 1. 찜 목록 쿼리 캐시 무효화
+        queryClient.invalidateQueries({ queryKey: ['books', isbn13] }); // 2. 해당 책 상세 쿼리 캐시 무효화 (key는 실제 상세조회에 쓰는 key와 맞춰야 함)
       },
       onError: (error) => {
         console.error('좋아요 삭제 실패:', error);

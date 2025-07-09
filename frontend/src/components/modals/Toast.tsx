@@ -13,40 +13,31 @@ export default function Toast({
   duration = 2000,
   fadeDuration = 500,
 }: ToastProps) {
-  const [visible, setVisible] = useState(true);
+  const [fadingOut, setFadingOut] = useState(false);
 
   useEffect(() => {
-    // duration 후에 fade-out 시작
-    const fadeTimer = setTimeout(() => setVisible(false), duration);
+    const fadeTimer = setTimeout(() => {
+      setFadingOut(true); // opacity 줄이기 시작
+    }, duration);
 
-    // fadeDuration 후에 onClose (언마운트)
-    const closeTimer = setTimeout(() => {
+    const removeTimer = setTimeout(() => {
       onClose();
     }, duration + fadeDuration);
 
     return () => {
       clearTimeout(fadeTimer);
-      clearTimeout(closeTimer);
+      clearTimeout(removeTimer);
     };
   }, [onClose, duration, fadeDuration]);
 
-  // Fade out: opacity 0, 아래로 이동
-  const style = visible
-    ? {
-        opacity: 1,
-        transform: 'translate(-50%, 0)',
-        transition: `opacity ${fadeDuration}ms, transform ${fadeDuration}ms`,
-      }
-    : {
-        opacity: 0,
-        transform: 'translate(-50%, 30px)', // 아래로 살짝 이동
-        transition: `opacity ${fadeDuration}ms, transform ${fadeDuration}ms`,
-      };
-
   return (
     <div
-      className="fixed bottom-24 left-1/2 bg-black text-white text-sm px-4 py-2 rounded-full shadow-md z-50"
-      style={style}
+      className={`fixed bottom-24 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-4 py-2 rounded-full shadow-md z-50 pointer-events-none`}
+      style={{
+        opacity: fadingOut ? 0 : 1,
+        transform: fadingOut ? 'translate(-50%, 30px)' : 'translate(-50%, 0)',
+        transition: `opacity ${fadeDuration}ms ease, transform ${fadeDuration}ms ease`,
+      }}
     >
       {message}
     </div>
