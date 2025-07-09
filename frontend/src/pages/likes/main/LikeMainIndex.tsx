@@ -16,6 +16,9 @@ interface Like {
 export default function LikeMainIndex() {
   const { isError: userError } = useUserQuery();
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const { data: likes, isLoading, isError } = useGetLikes();
+  // 훅은 무조건 컴포넌트 최상단에서 호출 => 조건부 뒤에 하면 어떨때는 선언되고, 어떨때는 선언안되고해서
+  // 상태를 일관되게 기억 못함
 
   useEffect(() => {
     if (userError) {
@@ -32,7 +35,6 @@ export default function LikeMainIndex() {
       />
     );
 
-  const { data: likes, isLoading, isError } = useGetLikes();
   console.log('likes: ', likes);
   if (isError) return <div>찜 목록을 불러오는 중 오류가 발생했습니다.</div>;
   if (isLoading) return <Loading />;
