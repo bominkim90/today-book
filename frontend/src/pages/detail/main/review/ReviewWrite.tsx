@@ -14,6 +14,7 @@ export default function ReviewWrite() {
   const [text, setText] = useState<string>('');
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
+  const [showDepleReviewAlertModal, setShowDepleReviewAlertModal] = useState(false);
 
   function limitTextLength(text: string) {
     if (text.length > maxTextLength) {
@@ -71,10 +72,10 @@ export default function ReviewWrite() {
             onClick={addReview}
             disabled={isPending}
           >
-            {showAlertModal && (
+            {showDepleReviewAlertModal && (
               <AlertModal
                 message="이미 리뷰를 작성하셨습니다."
-                onConfirm={() => setShowAlertModal(false)}
+                onConfirm={() => setShowDepleReviewAlertModal(false)}
               />
             )}
             {isPending ? '리뷰 작성 중...' : '리뷰 작성'}
