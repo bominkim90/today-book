@@ -15,7 +15,7 @@ export default function ReviewList() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editedContent, setEditedContent] = useState('');
   // 유저 데이터
-  const { data: userData } = useUserQuery();
+  const { data: userData, isError: userError } = useUserQuery();
   console.log('userData: ', userData);
 
   if (isLoading) return <p className="error-message">리뷰 불러오는 중...</p>;
@@ -66,7 +66,7 @@ export default function ReviewList() {
               <p className="text-[14px] text-mainBlack">{userData.nickname}</p>
             </div>
             {/* 리뷰 수정 */}
-            {review.userId === userData?.id && (
+            {review.userId === userData?.id && !userError && (
               <div className="text-[12px] text-gray-500 space-x-2 flex items-center gap-[8px]">
                 {editingId === review.id ? (
                   <>
