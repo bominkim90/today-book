@@ -30,7 +30,7 @@ export default function ReviewList() {
   };
 
   const handleSave = () => {
-    putReview.mutate({ isbn13: Number(isbn13), content: editedContent });
+    putReview.mutate({ isbn13: Number(isbn13), text: editedContent });
     setEditingId(null);
     setEditedContent('');
   };
@@ -77,7 +77,7 @@ export default function ReviewList() {
                 ) : (
                   <>
                     <button
-                      onClick={() => handleEdit(review.id, review.content)}
+                      onClick={() => handleEdit(review.id, review.text)}
                       className="text-gray-600 flex items-center"
                     >
                       <img src="/icons/actions/edit.svg" alt="수정" className="w-4 h-4" />
@@ -100,7 +100,7 @@ export default function ReviewList() {
               onChange={(e) => setEditedContent(e.target.value)}
             />
           ) : (
-            <p className="text-[14px] mb-[8px]">{review.content}</p>
+            <p className="text-[14px] mb-[8px]">{review.text}</p>
           )}
           <p className="mt-2 text-textGray text-xs">작성일: {review.date}</p>
         </div>
