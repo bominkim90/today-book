@@ -3,15 +3,18 @@ import { useDeleteReview, useGetReview, usePutReview } from '../../../../hooks/u
 import type { Review } from '../../../../models/review.model';
 import { useParams } from 'react-router-dom';
 import useUserQuery from '../../../../hooks/useUserQuery';
+import dayjs from 'dayjs';
 
 export default function ReviewList() {
   const { isbn13 } = useParams();
+  // 리뷰 데이터
   const { data: reviews = [], isLoading, isError } = useGetReview(Number(isbn13));
   const putReview = usePutReview();
   const deleteReview = useDeleteReview();
   const [showAll, setShowAll] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editedContent, setEditedContent] = useState('');
+  // 유저 데이터
   const { data: userData } = useUserQuery();
   console.log('userData: ', userData);
 
@@ -39,6 +42,11 @@ export default function ReviewList() {
     deleteReview.mutate(Number(isbn13));
   };
 
+  // 날짜 포맷팅
+  function formatDate(date: string) {
+    return dayjs(date).format('YYYY.MM.DD HH:mm');
+  }
+
   const displayedReviews = showAll ? reviews : reviews.slice(0, 2);
 
   return (
@@ -52,13 +60,13 @@ export default function ReviewList() {
             <div className="flex items-center">
               <img
                 className="w-[40px] h-[40px] rounded-full mr-[8px]"
-                src={review.image || '/imgs/user_dummy_review.png'}
-                alt={`${review.name}의 프로필`}
+                src={userData.image || '/imgs/user_dummy_review.png'}
+                alt={`${userData.nickname}의 프로필`}
               />
-              <p className="text-[14px] text-mainBlack">{review.name}</p>
+              <p className="text-[14px] text-mainBlack">{userData.nickname}</p>
             </div>
             {/* 리뷰 수정 */}
-            {review.writerId === userData?.id && (
+            {review.userId === userData?.id && (
               <div className="text-[12px] text-gray-500 space-x-2 flex items-center gap-[8px]">
                 {editingId === review.id ? (
                   <>
@@ -102,7 +110,7 @@ export default function ReviewList() {
           ) : (
             <p className="text-[14px] mb-[8px]">{review.content}</p>
           )}
-          <p className="mt-2 text-textGray text-xs">작성일: {review.date}</p>
+          <p className="mt-2 text-textGray text-xs">작성일: {formatDate(review.createdAt)}</p>
         </div>
       ))}
 
