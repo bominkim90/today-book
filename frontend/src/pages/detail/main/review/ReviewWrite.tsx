@@ -42,7 +42,7 @@ export default function ReviewWrite() {
           console.log('리뷰 작성 실패: ', error);
           if (axiosError?.response?.status === 409) {
             console.log('한 사람당, 리뷰 1개 등록 가능 => 이미 리뷰 등록했음');
-            setShowAlertModal(true);
+            setShowDepleReviewAlertModal(true);
           } else {
             // 그 외 에러
             alert('리뷰 작성 실패');
