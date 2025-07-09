@@ -1,19 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 type ToastProps = {
-  visible: boolean;
   message: string;
   onClose: () => void;
   duration?: number; // 기본 2초
 };
 
-export default function Toast({ visible, message, onClose, duration = 2000 }: ToastProps) {
+export default function Toast({ message, onClose, duration = 2000 }: ToastProps) {
+  const [visible, setVisible] = useState(true);
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onClose();
+    const visibleTimer = setTimeout(() => {
+      setVisible(false);
     }, duration);
 
-    return () => clearTimeout(timer);
+    const closeTimer = setTimeout(() => {
+      onClose();
+    }, duration * 2);
+
+    return () => {
+      clearTimeout(visibleTimer);
+      clearTimeout(closeTimer);
+    };
   }, [onClose, duration]);
 
   return (
