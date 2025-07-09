@@ -7,16 +7,31 @@ export default function SearchWindow() {
   const [searchValue, setSearchValue] = useState<string>('');
   const { searchBooks } = useBookSearch();
 
-  async function handleSearch() {
-    await searchBooks(searchValue);
+  function keyDownEsc(keycode: string) {
+    if (keycode === 'Escape') {
+      setSearchValue('');
+    }
   }
+
+  // (검색 자동완성) 백엔드 없이 프론트엔드로만 구현 불가능
+  // => 이유 : 알라딘 API 의 CORS 정책 때문 (같은 출처에서만 요청과 응답이 허용됨, 단 서버<->서버 간 통신은 CORS와 무관)
+  // async function resultOfautocomplete(searchValue: string) {
+  //   const apiUrl = `https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=발급키&Query=${encodeURIComponent(searchValue)}&QueryType=Title&MaxResults=5&start=1&SearchTarget=Book&output=JS&Version=20131101`;
+  //   const response = await axios.get(apiUrl);
+  //   console.log(response.data);
+  //   return response.data;
+  // }
+  // useEffect(() => {
+  //   resultOfautocomplete(searchValue);
+  // }, [searchValue]);
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         addSearchKeyword(searchValue);
-        handleSearch();
+        searchBooks(searchValue);
+        setSearchValue('');
       }}
       className="flex items-center h-10 w-[calc(100%-2rem)] pl-6 pr-3 rounded-full bg-searchBg"
     >
@@ -26,6 +41,7 @@ export default function SearchWindow() {
         onChange={(e) => {
           setSearchValue(e.target.value);
         }}
+        onKeyDown={(e) => keyDownEsc(e.key)}
         value={searchValue}
         placeholder="도서 제목 또는 저자 검색"
       />
