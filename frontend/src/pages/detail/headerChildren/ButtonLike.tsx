@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useUserQuery from '../../../hooks/useUserQuery';
 import { usePostLikes, useDeleteLikes } from '../../../hooks/useLikes';
 import LoginRequireModal from '../../../components/modals/LoginRequireModal';
@@ -16,7 +16,10 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
 
   // 좋아요 상태 확인
   const { data: bookData, isError: bookError } = useBookDetail(Number(isbn13));
-  const isLiked = bookData?.isLiked;
+  const [isLiked, setIsLiked] = useState(false);
+  useEffect(() => {
+    setIsLiked(bookData?.isLiked || false);
+  }, []);
 
   // 좋아요 추가/삭제 뮤테이션
   const { mutate: postLike } = usePostLikes();

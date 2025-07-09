@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDeleteReview, useGetReview, usePutReview } from '../../../../hooks/useReviews';
+import { useDeleteReview, useGetReview, usePatchReview } from '../../../../hooks/useReviews';
 import type { Review } from '../../../../models/review.model';
 import { useParams } from 'react-router-dom';
 import useUserQuery from '../../../../hooks/useUserQuery';
@@ -9,7 +9,7 @@ export default function ReviewList() {
   const { isbn13 } = useParams();
   // 리뷰 데이터
   const { data: reviews = [], isLoading, isError } = useGetReview(Number(isbn13));
-  const putReview = usePutReview();
+  const patchReview = usePatchReview();
   const deleteReview = useDeleteReview();
   const [showAll, setShowAll] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -33,7 +33,7 @@ export default function ReviewList() {
   };
 
   const handleSave = () => {
-    putReview.mutate({ isbn13: Number(isbn13), content: editedContent });
+    patchReview.mutate({ isbn13: Number(isbn13), content: editedContent });
     setEditingId(null);
     setEditedContent('');
   };
