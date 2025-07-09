@@ -22,8 +22,8 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
   const queryClient = useQueryClient();
 
   // 좋아요 추가/삭제 뮤테이션 (성공 시 캐시 무효화)
-  const { mutate: postLike } = usePostLikes();
-  const { mutate: deleteLike } = useDeleteLikes();
+  const { mutate: postLike, isPending: isPostingLike } = usePostLikes();
+  const { mutate: deleteLike, isPending: isDeletingLike } = useDeleteLikes();
 
   function toggleLikes() {
     if (!userInfo || userError) {
@@ -71,6 +71,7 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
               : "url('/icons/button/heart_filled.svg')",
         }}
         onClick={toggleLikes}
+        disabled={isPostingLike || isDeletingLike}
       >
         <span className="sr-only">찜 버튼</span>
       </button>
