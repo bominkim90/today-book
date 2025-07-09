@@ -49,7 +49,7 @@ export default function ButtonLike({ isbn13 }: ButtonLikeProps) {
         />
       )}
       {showToast && (
-        <Toast message="찜 목록 삭제 성공" onClose={() => setShowToast(false)} duration={2000} />
+        <Toast message="찜 목록 삭제 성공" onClose={() => setShowToast(false)} duration={4000} />
       )}
     </>
   );

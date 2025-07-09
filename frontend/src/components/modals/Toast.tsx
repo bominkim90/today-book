@@ -6,7 +6,7 @@ type ToastProps = {
   duration?: number; // 기본 2초
 };
 
-export default function Toast({ message, onClose, duration = 2000 }: ToastProps) {
+export default function Toast({ message, onClose, duration = 4000 }: ToastProps) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Toast({ message, onClose, duration = 2000 }: ToastProps)
         ${visible ? 'opacity-100' : 'opacity-0'}
       `}
       style={{
-        transition: `opacity ${duration / 1000}s ease-in-out`,
+        transition: `opacity ${duration / 2000}s ease-in-out`,
       }}
     >
       {message}
