@@ -15,5 +15,5 @@ export const deleteLikes = async (isbn13: number) => {
 // 찜 목록 조회
 export const getLikes = async () => {
   const response = await axios.get(`/api/likes/me`);
-  return response.data.book;
+  return response.data;
 };
