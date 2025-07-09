@@ -3,6 +3,7 @@ import { usePostReview } from '../../../../hooks/useReviews';
 import { useParams } from 'react-router-dom';
 import LoginRequiredModal from '../../../../components/modals/LoginRequireModal';
 import AlertModal from '../../../../components/modals/alertModal';
+import type { AxiosError } from 'axios';
 
 export default function ReviewWrite() {
   const { isbn13 } = useParams();
@@ -35,9 +36,16 @@ export default function ReviewWrite() {
           setText('');
           console.log('리뷰 작성 성공');
         },
-        onError: () => {
-          console.log('리뷰 작성 실패');
-          setShowLoginModal(true);
+        onError: (error) => {
+          const axiosError = error as AxiosError;
+          console.log('리뷰 작성 실패: ', error);
+          if (axiosError?.response?.status === 409) {
+            console.log('한 사람당, 리뷰 1개 등록 가능 => 이미 리뷰 등록했음');
+            setShowAlertModal(true);
+          } else {
+            // 그 외 에러
+            alert('리뷰 작성 실패');
+          }
         },
       }
     );
@@ -63,6 +71,12 @@ export default function ReviewWrite() {
             onClick={addReview}
             disabled={isPending}
           >
+            {showAlertModal && (
+              <AlertModal
+                message="이미 리뷰를 작성하셨습니다."
+                onConfirm={() => setShowAlertModal(false)}
+              />
+            )}
             {isPending ? '리뷰 작성 중...' : '리뷰 작성'}
           </button>
         </div>
