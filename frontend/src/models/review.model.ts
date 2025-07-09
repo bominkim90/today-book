@@ -1,8 +1,13 @@
 export interface Review {
   id: number;
-  image: string;
+  bookIsbn13: string;
   content: string;
   createdAt: string;
-  userId: number;
+  user: User;
+}
+
+interface User {
+  id: string;
   nickname: string;
+  image: string;
 }
