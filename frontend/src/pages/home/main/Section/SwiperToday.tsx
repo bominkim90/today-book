@@ -25,13 +25,12 @@ export default function SectionSwiper({ LIMIT, swiperLeng }: SectionSwiperProps)
   if (!allBooks) return <p>데이터가 없습니다.</p>;
 
   return (
-    <div className="relative w-full pb-8 h-[360px]">
+    <div className="relative w-full pb-8 h-[346px]">
       <Swiper
         effect="coverflow"
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={swiperLeng}
-        // loop={true}
         spaceBetween={30}
         onSlideChange={(swiper) => {
           setActiveIndex(swiper.realIndex);
