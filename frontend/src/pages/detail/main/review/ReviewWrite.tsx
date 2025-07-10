@@ -44,8 +44,8 @@ export default function ReviewWrite() {
             console.log('한 사람당, 리뷰 1개 등록 가능 => 이미 리뷰 등록했음');
             setShowDepleReviewAlertModal(true);
           } else {
-            // 그 외 에러
-            alert('리뷰 작성 실패');
+            // 그 외 에러 => 로그인 확인 팝업 띄우기
+            setShowLoginModal(true);
           }
         },
       }
